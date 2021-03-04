@@ -1,0 +1,31 @@
+version: '3.3'
+services:
+  # NGINX webservers with nginx-demo hello page
+  nginx1:
+      hostname: nginx1
+      build: nginx-hello
+      expose:
+        - "80"
+  nginx2:
+      hostname: nginx2
+      build: nginx-hello
+      ports:
+        - "80"
+  # Defining a third server with name nginx3
+  nginx3:
+      hostname: nginx3
+      build: nginx-hello
+      ports:
+        - "80"
+
+  # NGINX Plus Load Balancer
+  nginx-plus:
+      hostname: nginx-plus
+      build: nginx-plus
+      volumes:
+          - ./nginx-plus/etc/nginx:/etc/nginx
+      ports:
+          - 8080:8080
+          - 80:80
+          - 443:443
+      restart: always
