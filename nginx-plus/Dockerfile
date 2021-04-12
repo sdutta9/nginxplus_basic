@@ -39,7 +39,7 @@ RUN chmod 644 /etc/ssl/nginx/* \
  ## NDK dynamic module
  # && yum install -y --setopt=tsflags=nodocs nginx-plus-module-ndk \
  ## njs dynamic modules
- # && yum install -y --setopt=tsflags=nodocs nginx-plus-module-njs \
+ && yum install -y --setopt=tsflags=nodocs nginx-plus-module-njs \
  ## OpenTracing dynamic module
  # && yum install -y --setopt=tsflags=nodocs nginx-plus-module-opentracing \
  ## Passenger dynamic module
@@ -86,7 +86,7 @@ RUN chown -R nginx:nginx /etc/nginx \
  # Raise the limits to successfully run benchmarks
  && ulimit -c -m -s -t unlimited \
  # **Remove the Nginx Plus cert/keys from the image**
- && rm /etc/ssl/nginx/nginx-repo.crt /etc/ssl/nginx/nginx-repo.key
+#  && rm /etc/ssl/nginx/nginx-repo.crt /etc/ssl/nginx/nginx-repo.key
 
 # EXPOSE ports, HTTP 80, HTTPS 443 and, Nginx status page 8080
 EXPOSE 80 443 8080
