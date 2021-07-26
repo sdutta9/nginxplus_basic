@@ -12,9 +12,41 @@ etc/
 └── ssl/
     └── nginx/
     │    ├── nginx-repo.crt.........NGINX Plus repository certificate file (Use your evaluation crt file)
-    │    └── nginx-repo.key.........NGINX Plus repository key file (Use your evaluation key file)
-    ├── example.com.crt.............Self-signed wildcard cert for *.example.com
-    └── example.com.key.............Private key for Self-signed wildcard cert for *.example.com
+    └──  └── nginx-repo.key.........NGINX Plus repository key file (Use your evaluation key file)
+etc
+├── nginx
+│   ├── conf.d
+│   │   ├── health_checks.conf......Custom Healthcheck configurations
+│   │   ├── status_api.conf.........NGINX Plus Live Activity Monitoring available on port 9000
+│   │   ├── upstreams.conf..........Upstream configurations
+│   │   ├── www.qc.termnc.com.conf..Virtual Server configuration for www.qc.termnc.com
+│   │   └── www.termdm.com.conf.....Virtual Server configuration for www.termdm.com
+│   ├── fastcgi_params
+│   ├── includes
+│   │   ├── add_headers
+│   │   │   └── security.conf
+│   │   ├── nap.d
+│   │   │   └── logformats
+│   │   │       └── config-illegal-requests.json
+│   │   ├── proxy_headers
+│   │   │   ├── keepalive.conf
+│   │   │   └── proxy_headers.conf
+│   │   └── ssl
+│   │       ├── ssl_a+_strong.conf
+│   │       ├── ssl_intermediate.conf
+│   │       ├── ssl_modern.conf
+│   │       └── ssl_old.conf
+│   ├── koi-utf
+│   ├── koi-win
+│   ├── mime.types
+│   ├── nginx.conf
+│   ├── scgi_params
+│   ├── uwsgi_params
+│   └── win-utf
+└── ssl
+    └── nginx
+        ├── nginx-repo.crt.........NGINX Plus repository certificate file (Use your evaluation crt file)
+        └── nginx-repo.key.........NGINX Plus repository key file (Use your evaluation key file)
 ```
 
 ## Prerequisites:
@@ -29,7 +61,7 @@ For example on Linux/Unix/MacOS the host file is `/etc/hosts`
 
 ```bash
 # NGINX Plus demo system (local docker host)
-127.0.0.1 www.example.com
+127.0.0.1 www.nc.termnc.com www.termdm.com
 ```
 
 > **Note:**
@@ -79,11 +111,10 @@ docker-compose up --force-recreate
 
 ```bash
 $> docker ps                                          
-CONTAINER ID        IMAGE                        COMMAND                  CREATED             STATUS              PORTS                                                              NAMES
-7b8108fa6643        nginxplus_basic_nginx-plus   "nginx -g 'daemon of…"   12 seconds ago      Up 11 seconds       0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp, 0.0.0.0:8080->8080/tcp   nginxplus_basic_nginx-plus_1
-0b85c2136f6c        nginxplus_basic_nginx2       "/docker-entrypoint.…"   12 seconds ago      Up 11 seconds       0.0.0.0:32771->80/tcp                                              nginxplus_basic_nginx2_1
-aed9a812eb06        nginxplus_basic_nginx3       "/docker-entrypoint.…"   12 seconds ago      Up 11 seconds       0.0.0.0:32770->80/tcp                                              nginxplus_basic_nginx3_1
-19a465d2a597        nginxplus_basic_nginx1       "/docker-entrypoint.…"   12 seconds ago      Up 11 seconds       80/tcp                                                             nginxplus_basic_nginx1_1
+CONTAINER ID   IMAGE                        COMMAND                  CREATED         STATUS         PORTS                                                                                                   NAMES
+c78052ab1841   nginxplus_basic_nginx-plus   "nginx -g 'daemon of…"   3 minutes ago   Up 3 minutes   80/tcp, 0.0.0.0:8080->8080/tcp, :::8080->8080/tcp, 443/tcp, 0.0.0.0:9000->9000/tcp, :::9000->9000/tcp   nginxplus_basic_nginx-plus_1
+c26f4ad92852   nginxplus_basic_nginx1       "/docker-entrypoint.…"   3 minutes ago   Up 3 minutes   80/tcp, 0.0.0.0:57378->808/tcp, 0.0.0.0:57379->8080/tcp                                                 nginxplus_basic_nginx1_1
+1dfe56bd113d   nginxplus_basic_nginx2       "/docker-entrypoint.…"   3 minutes ago   Up 3 minutes   80/tcp, 0.0.0.0:57313->808/tcp, 0.0.0.0:57312->8080/tcp                                                 nginxplus_basic_nginx2_1
 ```
 
-The demo environment is ready in seconds. You can access the `nginx-hello` demo website on **HTTPS / Port 443** ([`https://localhost`](https://localhost) or [https://www.example.com](https://www.example.com)) and the NGINX API on **HTTP / Port 8080** ([`http://localhost:8080`](http://localhost:8080))
+The demo environment is ready in seconds. You can access the `nginx-hello` demo website on **HTTP / Port 8080** ([`http://www.qc.termnc.com:8080`](https://www.qc.termnc.com:8080) or [https://www.termdm.com:8080](https://www.termdm.com:8080)) and the NGINX API on **HTTP / Port 8080** ([`http://localhost:9000`](http://localhost:9000))

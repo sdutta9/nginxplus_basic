@@ -4,19 +4,15 @@ services:
   nginx1:
       hostname: nginx1
       build: nginx-hello
-      expose:
-        - "80"
+      ports:
+        - 8080
+        - 808
   nginx2:
       hostname: nginx2
       build: nginx-hello
       ports:
-        - "80"
-  # Defining a third server with name nginx3
-  nginx3:
-      hostname: nginx3
-      build: nginx-hello
-      ports:
-        - "80"
+        - 8080
+        - 808
 
   # NGINX Plus Load Balancer
   nginx-plus:
@@ -26,6 +22,5 @@ services:
           - ./nginx-plus/etc/nginx:/etc/nginx
       ports:
           - 8080:8080
-          - 80:80
-          - 443:443
+          - 9000:9000
       restart: always
