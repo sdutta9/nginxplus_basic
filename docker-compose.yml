@@ -18,6 +18,13 @@ services:
       ports:
         - "80"
 
+  # Defining httpbin server
+  httpbin:
+      hostname: httpbin1
+      image: kennethreitz/httpbin
+      ports:
+        - "80"
+
   # NGINX Plus Load Balancer
   nginx-plus:
       hostname: nginx-plus
