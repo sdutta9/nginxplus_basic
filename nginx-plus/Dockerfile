@@ -8,6 +8,11 @@ LABEL maintainer="sh.dutta@f5.com"
 RUN mkdir -p /etc/ssl/nginx
 COPY etc/ssl/nginx/nginx-repo.crt /etc/ssl/nginx/nginx-repo.crt
 COPY etc/ssl/nginx/nginx-repo.key /etc/ssl/nginx/nginx-repo.key
+### Added for troubleshooting centos8 problems
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+RUN yum update -y
+###
 RUN chmod 644 /etc/ssl/nginx/* \
 # Install prerequisite packages and vim for editing:
  && yum install -y --setopt=tsflags=nodocs wget ca-certificates bind-utils wget bind-utils vim-minimal \
