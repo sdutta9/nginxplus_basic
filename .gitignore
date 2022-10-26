@@ -1,5 +1,4 @@
 
 nginx-repo.*
-
 # Ignore MacOS system files
 .DS_Store
