@@ -31,3 +31,13 @@ services:
           - 80:80
           - 443:443
       restart: always
+
+  prometheus:
+      hostname: prometheus
+      image: nginx/nginx-prometheus-exporter:0.11
+      command: 
+          - -nginx.plus
+          - -nginx.scrape-uri=http://nginx-plus:8080/api
+      ports:
+          - 9113:9113
+      restart: always

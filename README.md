@@ -79,11 +79,18 @@ docker-compose up --force-recreate
 
 ```bash
 $> docker ps                                          
-CONTAINER ID        IMAGE                        COMMAND                  CREATED             STATUS              PORTS                                                              NAMES
-7b8108fa6643        nginxplus_basic_nginx-plus   "nginx -g 'daemon of…"   12 seconds ago      Up 11 seconds       0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp, 0.0.0.0:8080->8080/tcp   nginxplus_basic_nginx-plus_1
-0b85c2136f6c        nginxplus_basic_nginx2       "/docker-entrypoint.…"   12 seconds ago      Up 11 seconds       0.0.0.0:32771->80/tcp                                              nginxplus_basic_nginx2_1
-aed9a812eb06        nginxplus_basic_nginx3       "/docker-entrypoint.…"   12 seconds ago      Up 11 seconds       0.0.0.0:32770->80/tcp                                              nginxplus_basic_nginx3_1
-19a465d2a597        nginxplus_basic_nginx1       "/docker-entrypoint.…"   12 seconds ago      Up 11 seconds       80/tcp                                                             nginxplus_basic_nginx1_1
+CONTAINER ID   IMAGE                                  COMMAND                  CREATED         STATUS         PORTS                                                              NAMES
+860d39ccce3d   nginxplus_basic-nginx-plus             "nginx -g 'daemon of…"   5 minutes ago   Up 5 minutes   0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp, 0.0.0.0:8080->8080/tcp   nginxplus_basic-nginx-plus-1
+8452135610b3   nginxplus_basic-nginx2                 "/docker-entrypoint.…"   5 minutes ago   Up 5 minutes   0.0.0.0:51144->80/tcp                                              nginxplus_basic-nginx2-1
+ff4ca95a65a6   nginxplus_basic-nginx3                 "/docker-entrypoint.…"   5 minutes ago   Up 5 minutes   0.0.0.0:51145->80/tcp                                              nginxplus_basic-nginx3-1
+d4f0cc225414   nginxplus_basic-nginx1                 "/docker-entrypoint.…"   5 minutes ago   Up 5 minutes   80/tcp                                                             nginxplus_basic-nginx1-1
+472ba4f7f039   nginx/nginx-prometheus-exporter:0.11   "/usr/bin/nginx-prom…"   5 minutes ago   Up 5 minutes   0.0.0.0:9113->9113/tcp                                             nginxplus_basic-prometheus-1
 ```
 
-The demo environment is ready in seconds. You can access the `nginx-hello` demo website on **HTTPS / Port 443** ([`https://localhost`](https://localhost) or [https://www.example.com](https://www.example.com)) and the NGINX API on **HTTP / Port 8080** ([`http://localhost:8080`](http://localhost:8080))
+The demo environment is ready in seconds. You can access the `nginx-hello` demo website on **HTTPS / Port 443** (https://localhost or https://www.example.com) and the NGINX API on **HTTP / Port 8080** (http://localhost:8080)
+
+### Prometheus Exporter
+
+This branch also runs a `nginx-prometheus-exporter` image which is used to expose all the plus metrics using prometheus exporter. For more details about this image look into its github repository(https://github.com/nginxinc/nginx-prometheus-exporter).
+
+You can access the exported metrics by prometheus by navigating to (http://localhost:9113/metrics)
