@@ -1,0 +1,6 @@
+
+curl -k https://www.example.com  --cert ./nginx-plus/etc/ssl/client.crt --key ./nginx-plus/etc/ssl/client.key
+
+curl -k https://www.example.com  --cert ./nginx-plus/etc/ssl/client2.crt --key ./nginx-plus/etc/ssl/client2.key
+
+openssl rsa -aes256 -in example.com.key -out example.com.withpass.key
