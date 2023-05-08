@@ -13,8 +13,15 @@ etc/
     └── nginx/
     │    ├── nginx-repo.crt.........NGINX Plus repository certificate file (Use your evaluation crt file)
     │    └── nginx-repo.key.........NGINX Plus repository key file (Use your evaluation key file)
+    ├── client.crt..................Self-signed client cert for a valid user
+    ├── client.key..................Private key for Self-signed wildcard cert for a valid user
+    ├── client2.crt.................Self-signed client cert for an invalid user
+    ├── client2.key.................Private key for Self-signed wildcard cert for an invalid user
     ├── example.com.crt.............Self-signed wildcard cert for *.example.com
-    └── example.com.key.............Private key for Self-signed wildcard cert for *.example.com
+    ├── example.com.key.............Private key for Self-signed wildcard cert for *.example.com
+    ├── example.com.withpass.key....Private key for Self-signed wildcard cert for *.example.com protected with pass-phrase
+    ├── invalid.pass................Invalid pass-phrase file
+    └── valid.pass..................Valid Pass-phrase file
 ```
 
 ## Prerequisites:

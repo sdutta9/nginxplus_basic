@@ -3,4 +3,7 @@ curl -k https://www.example.com  --cert ./nginx-plus/etc/ssl/client.crt --key ./
 
 curl -k https://www.example.com  --cert ./nginx-plus/etc/ssl/client2.crt --key ./nginx-plus/etc/ssl/client2.key
 
+openssl req -x509 -nodes -days 1825 -newkey rsa:2048 -keyout example.com.key -out example.com.crt -subj "/CN=*.example.com"
+
 openssl rsa -aes256 -in example.com.key -out example.com.withpass.key
+
