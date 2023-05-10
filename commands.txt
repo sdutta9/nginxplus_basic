@@ -1,19 +1,30 @@
 ##### Openssl command to create Server certificate #####
-openssl req -x509 -nodes -days 1825 -newkey rsa:2048 -keyout example.com.key -out example.com.crt -subj "/CN=*.example.com"
-
-
-##### Openssl command to create Client certificate #####
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout client1.key -out client1.crt
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout client2.key -out client2.crt
-
-
-##### curl commands to test Client certificates #####
-curl -k https://www.example.com  --cert ./nginx-plus/etc/ssl/client1.crt --key ./nginx-plus/etc/ssl/client1.key
-curl -k https://www.example.com  --cert ./nginx-plus/etc/ssl/client2.crt --key ./nginx-plus/etc/ssl/client2.key
-
+openssl req -x509 -nodes -days 1825 -newkey rsa:4096 -keyout example.com.key -out example.com.crt -subj "/CN=*.example.com"
 
 ##### Openssl command to encrypt key file with a pass-phrase #####
 openssl rsa -aes256 -in example.com.key -out example.com.withpass.key
 
+------------
+
+##### Openssl command to create Certificate Authority #####
+openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout ca.key -out ca.crt -subj "/CN=my_ca"
+
+##### Openssl command to create Client Certificate Signing Request (CSR) #####
+openssl req -nodes -days 30 -newkey rsa:4096 -keyout client1.key -out client1.csr -subj "/CN=user1"
+openssl req -nodes -days 30 -newkey rsa:4096 -keyout client2.key -out client2.csr -subj "/CN=user2"
+
+##### Openssl command to sign Client CSR with CA #####
+openssl x509 -req -days 30 -in client1.csr -out client1.crt -CA ca.crt -CAkey ca.key -CAcreateserial
+openssl x509 -req -days 30 -in client2.csr -out client2.crt -CA ca.crt -CAkey ca.key -CAcreateserial
+
+##### Openssl command to create Client Certificate not signed by CA (Invalid Cert testing) #####
+openssl req -x509 -nodes -days 30 -newkey rsa:4096 -keyout client3.key -out client3.crt -subj "/CN=user3"
+
+##### curl commands to test valid Client certificates #####
+curl -k https://www.example.com  --cert ./nginx-plus/etc/ssl/mtls/client1.crt --key ./nginx-plus/etc/ssl/mtls/client1.key
+curl -k https://www.example.com  --cert ./nginx-plus/etc/ssl/mtls/client2.crt --key ./nginx-plus/etc/ssl/mtls/client2.key
+
+##### curl commands to test invalid Client certificates #####
+curl -k https://www.example.com  --cert ./nginx-plus/etc/ssl/mtls/client3.crt --key ./nginx-plus/etc/ssl/mtls/client3.key
 
 
