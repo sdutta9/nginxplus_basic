@@ -24,10 +24,22 @@ services:
       build: 
          context: nginx-plus
          dockerfile: Dockerfile_ubuntu
+        # Secret needed for debian build
+        #  secrets:
+        #   - nginx-crt
+        #   - nginx-key
       volumes:
           - ./nginx-plus/etc/nginx:/etc/nginx
+          # Needed for debian build as certs are passed as secrets
+          # - ./nginx-plus/etc/ssl:/etc/ssl
       ports:
           - 8080:8080
           - 80:80
           - 443:443
       restart: always
+# Secret needed for debian build
+# secrets:
+#   nginx-crt:
+#     file: ./nginx-plus/etc/ssl/nginx/nginx-repo.crt
+#   nginx-key:
+#     file: ./nginx-plus/etc/ssl/nginx/nginx-repo.key
