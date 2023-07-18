@@ -3,18 +3,24 @@ services:
   # NGINX webservers with nginx-demo hello page
   nginx1:
       hostname: nginx1
-      build: nginx-hello
+      build: 
+         context: nginx-hello
+         dockerfile: DockerfilePlainText
       expose:
         - "80"
   nginx2:
       hostname: nginx2
-      build: nginx-hello
+      build: 
+         context: nginx-hello
+         dockerfile: DockerfilePlainText
       ports:
         - "80"
   # Defining a third server with name nginx3
   nginx3:
       hostname: nginx3
-      build: nginx-hello
+      build: 
+         context: nginx-hello
+         dockerfile: DockerfilePlainText
       ports:
         - "80"
 
